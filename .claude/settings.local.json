@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat /Users/anziwang/Documents/contraAdj/experiment/css/*.css)"
+    ]
+  }
+}
