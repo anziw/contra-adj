@@ -95,3 +95,5 @@ Item,Condition,TargetPos,Sentence,Question,Correct,Incorrect,Adj1,Adj2
 46,UNGRAMM,0,"Manage to pass, Tim did his exam.",,,,,
 47,UNGRAMM,0,"Start to eat, Ava did the dinner.",,,,,
 48,UNGRAMM,0,"Care to ask, Aaron did the question.",,,,,
+49,PRACTICE1,0,"Very similar, but even more striking, is the evidence from athletic training.",,,,,
+50,PRACTICE2,0,"The girl's feet were then re-wrapped even tighter than before, causing her footprint to shrink further.",Were the wraps around the girl's feet tighter after they were re-wrapped?,Yes,No,,

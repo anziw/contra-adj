@@ -6,13 +6,27 @@ import json
 import sys
 from collections import defaultdict
 
-def tokenize(sentence, target_pos=None, default_region="critical"):
+def tokenize(sentence, target_pos=None):
     """Split sentence into word objects with lbr flags."""
     words = sentence.strip().split()
     target_idx = int(target_pos) - 1 if target_pos and int(target_pos) != 0 else None
     result = []
     for i, w in enumerate(words):
-        region = "target" if i == target_idx else default_region
+        if target_idx is not None:
+            if i == target_idx:
+                region = "critical"
+            elif i == target_idx + 1:
+                region = "spillover_1"
+            elif i == target_idx + 2:
+                region = "spillover_2"
+            elif i == target_idx + 3:
+                region = "spillover_3"
+            elif i == target_idx - 3:
+                region = "contrast"
+            else:
+                region = "0"
+        else:
+            region = "0"
         result.append({
             "form": w,
             "lbr_before": False,
@@ -25,7 +39,7 @@ def build_trial(row, trial_type):
     """Build a single trial object from a CSV row."""
     return {
         "condition": row["Condition"],
-        "words": tokenize(row["Sentence"], row["TargetPos"], default_region="filler" if trial_type == "filler" else "critical"),
+        "words": tokenize(row["Sentence"], row["TargetPos"]),
         "question": row["Question"],
         "correct_answer": row["Correct"],
         "incorrect_answer": row["Incorrect"],
@@ -43,7 +57,7 @@ def convert(csv_path, output_path="stims.js"):
     with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            is_filler = "PROVO" in row["Condition"] or "UNGRAMM" in row["Condition"]
+            is_filler = ("PROVO" in row["Condition"] or "UNGRAMM" in row["Condition"]) or "PRACTICE" in row["Condition"]
 
             if is_filler:
                 trial = build_trial(row, "filler")
