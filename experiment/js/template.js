@@ -27,6 +27,13 @@ function build_trials() {
 function make_slides(f) {
   var   slides = {};
 
+  slides.consent = slide({
+    name: "consent",
+    button: function() {
+      exp.go();
+    }
+  });
+
   slides.welcome = slide({
      name : "welcome",
      start: function() {
@@ -291,7 +298,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["welcome", "instructions", "practice-start", "practice", "practice-end", "trial", "subj_info", "thanks"];
+  exp.structure=["consent", "welcome", "instructions", "practice-start", "practice", "practice-end", "trial", "subj_info", "thanks"];
 
   exp.data_trials = [];
   //make corresponding slides:
